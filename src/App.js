@@ -18,6 +18,8 @@ const monthsArray = [
     "December",
 ];
 
+const daysArray = ["Mo", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
 function App() {
     const [events, setEvents] = useState([]);
 
@@ -28,8 +30,7 @@ function App() {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
-                setEvents(data);
+                setEvents(data.data);
             });
     }, []);
 
@@ -49,11 +50,32 @@ function App() {
                     newDate={newDate}
                     setNewDate={setNewDate}
                     monthsArray={monthsArray}
+                    daysArray={daysArray}
                 />
                 <EventsBoard>
                     <h2>
                         {monthsArray[newDate.month]} {newDate.year}
                     </h2>
+                    {events.map((event) => {
+                        const date = event.dateVenue;
+                        const venueMonth = new Date(date).getMonth();
+                        const venueDay = new Date(date).getMonth();
+
+                        console.log(event);
+
+                        return (
+                            <div>
+                                <div className="date-title">
+                                    <h2>20 {monthsArray[newDate.month]}</h2>
+                                </div>
+                                <div>
+                                    {newDate.month === venueMonth
+                                        ? event.dateVenue
+                                        : null}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </EventsBoard>
             </AppWrapper>
         </>

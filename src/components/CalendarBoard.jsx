@@ -1,8 +1,6 @@
 import { Calendar } from "../styles/main.js";
 
-const daysArray = ["Mo", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-function CalendarBoard({ newDate, setNewDate, monthsArray }) {
+function CalendarBoard({ newDate, setNewDate, monthsArray, daysArray }) {
     function changeMonth(offset) {
         setNewDate((prev) => {
             if (prev.month === 11 && offset === 1) {
