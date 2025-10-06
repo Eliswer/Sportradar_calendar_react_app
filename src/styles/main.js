@@ -65,17 +65,67 @@ const Calendar = styled.div`
         }
     }
 `;
-const EventsBoard = styled.div`
+const EventsBoardStyled = styled.div`
     height: 50%;
     width: 50%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     flex: 1 1 350px;
+    justify-content: space-between;
     max-width: 500px;
     background-color: white;
     box-shadow: 0px 10px 13px -7px rgb(104, 104, 104),
         5px 5px 15px 5px rgba(0, 0, 0, 0);
+
+    .filters-wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        p {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .event {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+    }
+
+    .event__date {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .event__day-number,
+    .event__day-name {
+        margin: 0;
+    }
+
+    .event__day-name {
+        color: grey;
+        font-weight: 100;
+    }
+
+    .event__details {
+        flex: 1;
+        text-align: center;
+    }
+
+    .event__competition {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 85%;
+        text-align: center;
+    }
 `;
 
-export { GlobalStyle, AppWrapper, Calendar, EventsBoard };
+export { GlobalStyle, AppWrapper, Calendar, EventsBoardStyled };

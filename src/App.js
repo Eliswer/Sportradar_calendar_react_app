@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { GlobalStyle, AppWrapper, EventsBoard } from "./styles/main.js";
-
+import { GlobalStyle, AppWrapper } from "./styles/main.js";
 import CalendarBoard from "./components/CalendarBoard.jsx";
+import EventsBoard from "./components/EventsBoard.jsx";
 
 const monthsArray = [
     "January",
     "February",
     "March",
     "April",
-    " May",
+    "May",
     "June",
     "July",
     "August",
@@ -35,7 +35,6 @@ function App() {
     }, []);
 
     const today = new Date();
-
     const [newDate, setNewDate] = useState({
         year: today.getFullYear(),
         month: today.getMonth(),
@@ -52,31 +51,12 @@ function App() {
                     monthsArray={monthsArray}
                     daysArray={daysArray}
                 />
-                <EventsBoard>
-                    <h2>
-                        {monthsArray[newDate.month]} {newDate.year}
-                    </h2>
-                    {events.map((event) => {
-                        const date = event.dateVenue;
-                        const venueMonth = new Date(date).getMonth();
-                        const venueDay = new Date(date).getMonth();
-
-                        console.log(event);
-
-                        return (
-                            <div>
-                                <div className="date-title">
-                                    <h2>20 {monthsArray[newDate.month]}</h2>
-                                </div>
-                                <div>
-                                    {newDate.month === venueMonth
-                                        ? event.dateVenue
-                                        : null}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </EventsBoard>
+                <EventsBoard
+                    newDate={newDate}
+                    daysArray={daysArray}
+                    events={events}
+                    monthsArray={monthsArray}
+                />
             </AppWrapper>
         </>
     );
