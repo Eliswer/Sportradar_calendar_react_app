@@ -1,7 +1,13 @@
 import { useState } from "react";
-import { EventsBoardStyled } from "../styles/main.js";
+import { EventsBoardStyled, Button } from "../styles/main.js";
 
-function EventsBoard({ daysArray, events, monthsArray, newDate }) {
+function EventsBoard({
+    daysArray,
+    events,
+    monthsArray,
+    newDate,
+    setIsEditing,
+}) {
     const [categorySelect, setCategorySelect] = useState("all");
     const [categorizedEvents, setCategorizedEvents] = useState(undefined);
     const itemsToRender = categorySelect === "all" ? events : categorizedEvents;
@@ -45,6 +51,7 @@ function EventsBoard({ daysArray, events, monthsArray, newDate }) {
                     day: new Date(date).getDay(),
                     date: new Date(date).getDate(),
                     year: new Date(date).getFullYear(),
+                    time: event.timeVenueUTC.slice(0, 5),
                 };
 
                 return (
@@ -62,11 +69,15 @@ function EventsBoard({ daysArray, events, monthsArray, newDate }) {
 
                             <div className="event__competition">
                                 {event.originCompetitionName}
+                                {" - " + venueTime.time}
                             </div>
                         </div>
                     )
                 );
             })}
+            <Button onClick={() => setIsEditing((prev) => !prev)}>
+                Add event
+            </Button>
         </EventsBoardStyled>
     );
 }

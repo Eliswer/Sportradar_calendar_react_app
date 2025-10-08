@@ -28,14 +28,16 @@ const AppWrapper = styled.div`
 const Calendar = styled.div`
     height: 50%;
     width: 50%;
-    padding: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     flex: 1 1 350px;
-    max-width: 500px;
+    justify-content: space-between;
+    max-width: 550px;
     background-color: white;
     box-shadow: 0px 10px 13px -7px rgb(104, 104, 104),
         5px 5px 15px 5px rgba(0, 0, 0, 0);
+    border-radius: 10px;
 
     .title {
         display: flex;
@@ -68,15 +70,16 @@ const Calendar = styled.div`
 const EventsBoardStyled = styled.div`
     height: 50%;
     width: 50%;
-    padding: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     flex: 1 1 350px;
     justify-content: space-between;
-    max-width: 500px;
+    max-width: 550px;
     background-color: white;
     box-shadow: 0px 10px 13px -7px rgb(104, 104, 104),
         5px 5px 15px 5px rgba(0, 0, 0, 0);
+    border-radius: 10px;
 
     .filters-wrapper {
         display: flex;
@@ -87,6 +90,7 @@ const EventsBoardStyled = styled.div`
         p {
             &:hover {
                 cursor: pointer;
+                color: #0056b3;
             }
         }
     }
@@ -128,4 +132,110 @@ const EventsBoardStyled = styled.div`
     }
 `;
 
-export { GlobalStyle, AppWrapper, Calendar, EventsBoardStyled };
+const EventForm = styled.div`
+    height: 50%;
+    width: 50%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 350px;
+    justify-content: space-between;
+    max-width: 550px;
+    background-color: white;
+    box-shadow: 0px 10px 13px -7px rgb(104, 104, 104),
+        5px 5px 15px 5px rgba(0, 0, 0, 0);
+    border-radius: 10px;
+
+    h2 {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .form-wrapper {
+        height: 70%;
+
+        form {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            .form-event-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                label {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    color: #333;
+                }
+
+                input {
+                    margin-bottom: 5px;
+                }
+
+                input,
+                select {
+                    font-size: 1rem;
+                    padding: 10px 12px;
+                    border: 1.5px solid #ccc;
+                    border-radius: 6px;
+                    outline: none;
+                    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+                    &:focus {
+                        border-color: #0077ff;
+                        box-shadow: 0 0 4px rgba(0, 119, 255, 0.4);
+                    }
+                }
+
+                select {
+                    background-color: #fff;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .buttons-wrapper {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+`;
+
+const Button = styled.button`
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.1s ease;
+    margin: 10px;
+
+    &:hover {
+        background-color: #0056b3;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0);
+        background-color: #004494;
+    }
+`;
+
+export {
+    GlobalStyle,
+    AppWrapper,
+    Calendar,
+    EventsBoardStyled,
+    EventForm,
+    Button,
+};

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GlobalStyle, AppWrapper } from "./styles/main.js";
 import CalendarBoard from "./components/CalendarBoard.jsx";
 import EventsBoard from "./components/EventsBoard.jsx";
+import AddEventForm from "./components/AddEventForm.jsx";
 
 const monthsArray = [
     "January",
@@ -24,15 +25,16 @@ function App() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        fetch("/sportData.json")
+        fetch("http://localhost:3001/events")
             .then((response) => {
                 if (!response.ok) throw new Error(response.status);
                 return response.json();
             })
-            .then((data) => {
-                setEvents(data.data);
-            });
+            .then((data) => setEvents(data))
+            .catch((err) => console.error("Error fetching events:", err));
     }, []);
+
+    const [isEditing, setIsEditing] = useState(false);
 
     const today = new Date();
     const [newDate, setNewDate] = useState({
@@ -40,6 +42,8 @@ function App() {
         month: today.getMonth(),
         day: today.getDay(),
     });
+
+    console.log(events);
 
     return (
         <>
@@ -51,12 +55,22 @@ function App() {
                     monthsArray={monthsArray}
                     daysArray={daysArray}
                 />
-                <EventsBoard
-                    newDate={newDate}
-                    daysArray={daysArray}
-                    events={events}
-                    monthsArray={monthsArray}
-                />
+                {isEditing ? (
+                    <AddEventForm
+                        newDate={newDate}
+                        monthsArray={monthsArray}
+                        setIsEditing={setIsEditing}
+                        setEvents={setEvents}
+                    />
+                ) : (
+                    <EventsBoard
+                        newDate={newDate}
+                        daysArray={daysArray}
+                        events={events}
+                        monthsArray={monthsArray}
+                        setIsEditing={setIsEditing}
+                    />
+                )}
             </AppWrapper>
         </>
     );
