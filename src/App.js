@@ -43,8 +43,6 @@ function App() {
         day: today.getDay(),
     });
 
-    console.log(events);
-
     return (
         <>
             <GlobalStyle />
@@ -54,6 +52,7 @@ function App() {
                     setNewDate={setNewDate}
                     monthsArray={monthsArray}
                     daysArray={daysArray}
+                    events={events}
                 />
                 {isEditing ? (
                     <AddEventForm

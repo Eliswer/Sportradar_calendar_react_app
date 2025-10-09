@@ -67,6 +67,16 @@ const Calendar = styled.div`
         }
     }
 `;
+const Day = styled.div`
+    background-color: ${({ hasEvent, eventColor }) =>
+        hasEvent ? eventColor : "#fff"};
+    border: 1px solid #ddd;
+    text-align: center;
+    border-radius: 4px;
+    line-height: 2rem;
+    cursor: pointer;
+`;
+
 const EventsBoardStyled = styled.div`
     height: 50%;
     width: 50%;
@@ -238,4 +248,5 @@ export {
     EventsBoardStyled,
     EventForm,
     Button,
+    Day,
 };

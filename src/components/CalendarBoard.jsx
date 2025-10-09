@@ -1,6 +1,12 @@
-import { Calendar } from "../styles/main.js";
+import { Calendar, Day } from "../styles/main.js";
 
-function CalendarBoard({ newDate, setNewDate, monthsArray, daysArray }) {
+function CalendarBoard({
+    newDate,
+    setNewDate,
+    monthsArray,
+    daysArray,
+    events,
+}) {
     function changeMonth(offset) {
         setNewDate((prev) => {
             if (prev.month === 11 && offset === 1) {
@@ -29,6 +35,42 @@ function CalendarBoard({ newDate, setNewDate, monthsArray, daysArray }) {
     const firstDayInMonth = new Date(newDate.year, newDate.month, 1).getDay();
     const adjustedFirstDayOfMonth =
         firstDayInMonth === 0 ? 6 : firstDayInMonth - 1;
+
+    /* 
+
+    const venueDay = new Date(event.dateVenue).getDay();
+
+    const hasEvent = 1;*/
+
+    function hasEvent(currentDay) {
+        let hasEvent = false;
+
+        events.forEach((event) => {
+            const date = event.dateVenue;
+
+            const venueTime = {
+                month: new Date(date).getMonth(),
+                day: new Date(date).getDay(),
+                date: new Date(date).getDate(),
+                year: new Date(date).getFullYear(),
+                time: event.timeVenueUTC.slice(0, 5),
+            };
+
+            if (currentDay === venueTime.date) {
+                hasEvent = true;
+                return;
+            }
+        });
+
+        return hasEvent;
+    }
+
+    function randomPastelColor() {
+        const r = Math.floor(Math.random() * 127 + 128);
+        const g = Math.floor(Math.random() * 127 + 128);
+        const b = Math.floor(Math.random() * 127 + 128);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
 
     return (
         <Calendar>
@@ -62,9 +104,20 @@ function CalendarBoard({ newDate, setNewDate, monthsArray, daysArray }) {
                 {Array.from({ length: adjustedFirstDayOfMonth }, (_, i) => (
                     <div key={i}></div>
                 ))}
-                {Array.from({ length: daysInMonth }, (_, i) => (
-                    <div key={i}>{i + 1}</div>
-                ))}
+                {Array.from({ length: daysInMonth }, (_, i) => {
+                    const currentDayHasEvent = hasEvent(i + 1);
+                    const eventColor = randomPastelColor();
+
+                    return (
+                        <Day
+                            hasEvent={currentDayHasEvent}
+                            eventColor={eventColor}
+                            key={i}
+                        >
+                            {i + 1}
+                        </Day>
+                    );
+                })}
             </div>
         </Calendar>
     );
