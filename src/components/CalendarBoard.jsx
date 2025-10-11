@@ -6,6 +6,7 @@ function CalendarBoard({
     monthsArray,
     daysArray,
     events,
+    eventColors,
 }) {
     function changeMonth(offset) {
         setNewDate((prev) => {
@@ -56,20 +57,17 @@ function CalendarBoard({
                 time: event.timeVenueUTC.slice(0, 5),
             };
 
-            if (currentDay === venueTime.date) {
+            if (
+                currentDay === venueTime.date &&
+                newDate.month === venueTime.month &&
+                newDate.year === venueTime.year
+            ) {
                 hasEvent = true;
                 return;
             }
         });
 
         return hasEvent;
-    }
-
-    function randomPastelColor() {
-        const r = Math.floor(Math.random() * 127 + 128);
-        const g = Math.floor(Math.random() * 127 + 128);
-        const b = Math.floor(Math.random() * 127 + 128);
-        return `rgb(${r}, ${g}, ${b})`;
     }
 
     return (
@@ -106,13 +104,20 @@ function CalendarBoard({
                 ))}
                 {Array.from({ length: daysInMonth }, (_, i) => {
                     const currentDayHasEvent = hasEvent(i + 1);
-                    const eventColor = randomPastelColor();
+                    const event = events.find(
+                        (e) => new Date(e.dateVenue).getDate() === i + 1
+                    );
+                    const colorKey = event
+                        ? event.dateVenue + event.originCompetitionName
+                        : null;
 
                     return (
                         <Day
-                            hasEvent={currentDayHasEvent}
-                            eventColor={eventColor}
                             key={i}
+                            hasEvent={currentDayHasEvent}
+                            eventColor={
+                                colorKey ? eventColors[colorKey] : "#fff"
+                            }
                         >
                             {i + 1}
                         </Day>

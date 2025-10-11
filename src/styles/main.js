@@ -70,11 +70,9 @@ const Calendar = styled.div`
 const Day = styled.div`
     background-color: ${({ hasEvent, eventColor }) =>
         hasEvent ? eventColor : "#fff"};
-    border: 1px solid #ddd;
     text-align: center;
     border-radius: 4px;
-    line-height: 2rem;
-    cursor: pointer;
+    padding: 7px;
 `;
 
 const EventsBoardStyled = styled.div`
@@ -112,12 +110,6 @@ const EventsBoardStyled = styled.div`
         text-align: center;
     }
 
-    .event__date {
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-    }
-
     .event__day-number,
     .event__day-name {
         margin: 0;
@@ -140,6 +132,16 @@ const EventsBoardStyled = styled.div`
         width: 85%;
         text-align: center;
     }
+`;
+
+const EventCard = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+    width: 3.5rem;
+    border-radius: 5px;
+    background-color: ${({ event, eventColors }) =>
+        eventColors[event.dateVenue + event.originCompetitionName] || "#fff"};
 `;
 
 const EventForm = styled.div`
@@ -249,4 +251,5 @@ export {
     EventForm,
     Button,
     Day,
+    EventCard,
 };

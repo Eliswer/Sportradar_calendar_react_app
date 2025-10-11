@@ -34,6 +34,22 @@ function App() {
             .catch((err) => console.error("Error fetching events:", err));
     }, []);
 
+    useEffect(() => {
+        if (events.length > 0) {
+            setEventColors((prev) => {
+                const updated = { ...prev };
+                events.forEach((event) => {
+                    const key = event.dateVenue + event.originCompetitionName;
+                    if (!updated[key]) {
+                        updated[key] = randomPastelColor();
+                    }
+                });
+                return updated;
+            });
+        }
+    }, [events]);
+
+    const [eventColors, setEventColors] = useState({});
     const [isEditing, setIsEditing] = useState(false);
 
     const today = new Date();
@@ -42,6 +58,13 @@ function App() {
         month: today.getMonth(),
         day: today.getDay(),
     });
+
+    function randomPastelColor() {
+        const r = Math.floor(Math.random() * 127 + 128);
+        const g = Math.floor(Math.random() * 127 + 128);
+        const b = Math.floor(Math.random() * 127 + 128);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
 
     return (
         <>
@@ -53,6 +76,7 @@ function App() {
                     monthsArray={monthsArray}
                     daysArray={daysArray}
                     events={events}
+                    eventColors={eventColors}
                 />
                 {isEditing ? (
                     <AddEventForm
@@ -68,6 +92,7 @@ function App() {
                         events={events}
                         monthsArray={monthsArray}
                         setIsEditing={setIsEditing}
+                        eventColors={eventColors}
                     />
                 )}
             </AppWrapper>

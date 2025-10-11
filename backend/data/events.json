@@ -198,5 +198,12 @@
         "originCompetitionId": "afc-champions-league",
         "originCompetitionName": "AFC Champions League",
         "sport": "football"
+    },
+    {
+        "id": 1760108494708,
+        "originCompetitionName": "AFC Champions League CZ",
+        "dateVenue": "2025-10-08",
+        "timeVenueUTC": "21:01:00",
+        "sport": "football"
     }
 ]

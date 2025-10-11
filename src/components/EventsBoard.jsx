@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EventsBoardStyled, Button } from "../styles/main.js";
+import { EventsBoardStyled, Button, EventCard } from "../styles/main.js";
 
 function EventsBoard({
     daysArray,
@@ -7,6 +7,7 @@ function EventsBoard({
     monthsArray,
     newDate,
     setIsEditing,
+    eventColors,
 }) {
     const [categorySelect, setCategorySelect] = useState("all");
     const [categorizedEvents, setCategorizedEvents] = useState(undefined);
@@ -58,14 +59,21 @@ function EventsBoard({
                     newDate.month === venueTime.month &&
                     newDate.year === venueTime.year && (
                         <div key={i} className="event">
-                            <div className="event__date">
-                                <p className="event__day-number">
-                                    {venueTime.date}
-                                </p>
-                                <p className="event__day-name">
-                                    {daysArray[venueTime.day]}
-                                </p>
-                            </div>
+                            <EventCard
+                                key={i}
+                                event={event}
+                                eventColors={eventColors}
+                                className="event"
+                            >
+                                <div className="event__date">
+                                    <p className="event__day-number">
+                                        {venueTime.date}
+                                    </p>
+                                    <p className="event__day-name">
+                                        {daysArray[venueTime.day]}
+                                    </p>
+                                </div>
+                            </EventCard>
 
                             <div className="event__competition">
                                 {event.originCompetitionName}
