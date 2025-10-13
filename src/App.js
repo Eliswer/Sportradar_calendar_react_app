@@ -80,8 +80,6 @@ function App() {
                 />
                 {isEditing ? (
                     <AddEventForm
-                        newDate={newDate}
-                        monthsArray={monthsArray}
                         setIsEditing={setIsEditing}
                         setEvents={setEvents}
                     />

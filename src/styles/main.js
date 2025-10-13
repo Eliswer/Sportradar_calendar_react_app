@@ -11,6 +11,16 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Archivo", sans-serif;
     background-color: #e8e8e8;
   }
+
+  h1, h2, h3 {
+    margin: 0;
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  p {
+    margin: 0;
+  }
 `;
 
 const AppWrapper = styled.div`
@@ -25,28 +35,27 @@ const AppWrapper = styled.div`
     height: 100vh;
 `;
 
-const Calendar = styled.div`
+const BaseCard = styled.div`
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     height: 50%;
     width: 50%;
-    padding: 30px;
+    max-width: 550px;
+`;
+
+const Calendar = styled(BaseCard)`
     display: flex;
     flex-direction: column;
     flex: 1 1 350px;
     justify-content: space-between;
-    max-width: 550px;
-    background-color: white;
-    box-shadow: 0px 10px 13px -7px rgb(104, 104, 104),
-        5px 5px 15px 5px rgba(0, 0, 0, 0);
-    border-radius: 10px;
 
     .title {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-
-        h1 {
-        }
 
         img {
             height: 2.5rem;
@@ -68,37 +77,66 @@ const Calendar = styled.div`
     }
 `;
 const Day = styled.div`
-    background-color: ${({ hasEvent, eventColor }) =>
-        hasEvent ? eventColor : "#fff"};
+    background-color: ${({ $hasEvent, $eventColor }) =>
+        $hasEvent ? $eventColor : "#fff"};
+    color: ${({ $hasEvent }) => ($hasEvent ? "#fff" : "#333")};
     text-align: center;
-    border-radius: 4px;
-    padding: 7px;
+    border-radius: 6px;
+    padding: 8px 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    box-shadow: ${({ hasEvent }) =>
+        hasEvent ? "0 0 6px rgba(0,0,0,0.2)" : "none"};
+
+    &:hover {
+        transform: scale(1.05);
+        background-color: ${({ $hasEvent, $eventColor }) =>
+            $hasEvent ? $eventColor : "#eef3ff"};
+        color: ${({ $hasEvent }) => ($hasEvent ? "#fff" : "#0077ff")};
+        cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+        width: 34px;
+        height: 34px;
+        font-size: 0.9rem;
+    }
 `;
 
-const EventsBoardStyled = styled.div`
-    height: 50%;
-    width: 50%;
+const EventsBoardStyled = styled(BaseCard)`
     padding: 30px;
     display: flex;
     flex-direction: column;
     flex: 1 1 350px;
     justify-content: space-between;
-    max-width: 550px;
-    background-color: white;
-    box-shadow: 0px 10px 13px -7px rgb(104, 104, 104),
-        5px 5px 15px 5px rgba(0, 0, 0, 0);
-    border-radius: 10px;
+
+    h2 {
+        margin-bottom: 10px;
+    }
 
     .filters-wrapper {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 0.5rem;
+        margin-bottom: 20px;
 
         p {
             &:hover {
                 cursor: pointer;
                 color: #0056b3;
+                transition: color 0.2s ease, transform 0.15s ease;
+
+                &:hover {
+                    cursor: pointer;
+                    color: #007bff;
+                    transform: translateY(-2px);
+                }
             }
         }
     }
@@ -108,6 +146,7 @@ const EventsBoardStyled = styled.div`
         justify-content: space-between;
         align-items: center;
         text-align: center;
+        border-bottom: 1px solid #eee;
     }
 
     .event__day-number,
@@ -131,6 +170,32 @@ const EventsBoardStyled = styled.div`
         align-items: center;
         width: 85%;
         text-align: center;
+        font-size: 0.95rem;
+        color: #333;
+    }
+    .no-events-message {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #555;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px auto;
+        width: 80%;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        animation: fadeIn 0.4s ease-in;
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     }
 `;
 
@@ -140,23 +205,16 @@ const EventCard = styled.div`
     padding: 7px;
     width: 3.5rem;
     border-radius: 5px;
-    background-color: ${({ event, eventColors }) =>
-        eventColors[event.dateVenue + event.originCompetitionName] || "#fff"};
+    background-color: ${({ $event, $eventColors }) =>
+        $eventColors[$event.dateVenue + $event.originCompetitionName] ||
+        "#fff"};
 `;
 
-const EventForm = styled.div`
-    height: 50%;
-    width: 50%;
-    padding: 30px;
+const EventForm = styled(BaseCard)`
     display: flex;
     flex-direction: column;
     flex: 1 1 350px;
     justify-content: space-between;
-    max-width: 550px;
-    background-color: white;
-    box-shadow: 0px 10px 13px -7px rgb(104, 104, 104),
-        5px 5px 15px 5px rgba(0, 0, 0, 0);
-    border-radius: 10px;
 
     h2 {
         text-align: center;
@@ -230,7 +288,7 @@ const Button = styled.button`
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.25s ease, transform 0.1s ease;
-    margin: 10px;
+    margin: 12px;
 
     &:hover {
         background-color: #0056b3;

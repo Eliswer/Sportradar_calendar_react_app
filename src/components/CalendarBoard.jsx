@@ -114,8 +114,8 @@ function CalendarBoard({
                     return (
                         <Day
                             key={i}
-                            hasEvent={currentDayHasEvent}
-                            eventColor={
+                            $hasEvent={currentDayHasEvent}
+                            $eventColor={
                                 colorKey ? eventColors[colorKey] : "#fff"
                             }
                         >

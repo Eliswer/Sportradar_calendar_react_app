@@ -44,6 +44,16 @@ function EventsBoard({
                 </div>
             </div>
 
+            {itemsToRender.filter((event) => {
+                const date = new Date(event.dateVenue);
+                return (
+                    date.getMonth() === newDate.month &&
+                    date.getFullYear() === newDate.year
+                );
+            }).length === 0 && (
+                <p className="no-events-message">No events for this month</p>
+            )}
+
             {itemsToRender.map((event, i) => {
                 const date = event.dateVenue;
 
@@ -61,8 +71,8 @@ function EventsBoard({
                         <div key={i} className="event">
                             <EventCard
                                 key={i}
-                                event={event}
-                                eventColors={eventColors}
+                                $event={event}
+                                $eventColors={eventColors}
                                 className="event"
                             >
                                 <div className="event__date">

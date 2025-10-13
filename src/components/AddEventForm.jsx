@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, EventForm } from "../styles/main.js";
 
-function AddEventForm({ newDate, monthsArray, setIsEditing, setEvents }) {
+function AddEventForm({ setIsEditing, setEvents }) {
     const [formData, setFormData] = useState({
         originCompetitionName: "",
         dateVenue: "",
@@ -48,7 +48,7 @@ function AddEventForm({ newDate, monthsArray, setIsEditing, setEvents }) {
             <div className="form-wrapper">
                 <form onSubmit={handleSubmit}>
                     <div className="form-event-wrapper">
-                        <label for="originCompetitionName">
+                        <label htmlFor="originCompetitionName">
                             Competition Name
                         </label>
                         <input
@@ -60,7 +60,7 @@ function AddEventForm({ newDate, monthsArray, setIsEditing, setEvents }) {
                         ></input>
                     </div>
                     <div className="form-event-wrapper">
-                        <label for="dateVenue">Day of Event</label>
+                        <label htmlFor="dateVenue">Day of Event</label>
                         <input
                             id="dateVenue"
                             name="dateVenue"
@@ -71,7 +71,7 @@ function AddEventForm({ newDate, monthsArray, setIsEditing, setEvents }) {
                         ></input>
                     </div>
                     <div className="form-event-wrapper">
-                        <label for="timeVenueUTC">Time of Event</label>
+                        <label htmlForfor="timeVenueUTC">Time of Event</label>
                         <input
                             id="timeVenueUTC"
                             name="timeVenueUTC"
@@ -82,7 +82,7 @@ function AddEventForm({ newDate, monthsArray, setIsEditing, setEvents }) {
                         ></input>
                     </div>
                     <div className="form-event-wrapper">
-                        <label for="sport">Sport</label>
+                        <label htmlForfor="sport">Sport</label>
                         <select
                             id="sport"
                             name="sport"
