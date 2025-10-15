@@ -1,7 +1,26 @@
+/**
+ * @file AddEventForm.jsx
+ * @description A controlled form component for creating and submitting new sports events to the backend.
+ * Handles form input changes, formatting, and posting data to the server, updating state on success.
+ */
+
 import { useState } from "react";
 import { Button, EventForm } from "../styles/main.js";
 
+/**
+ * Renders the form used to add a new event.
+ *
+ * @component
+ * @param {Object} props - Component properties.
+ * @param {Function} props.setIsEditing - Toggles between the form and the event list view.
+ * @param {Function} props.setEvents - Updates the events state with the newly added event.
+ * @returns {JSX.Element} A form that allows the user to input and submit new event data.
+ */
 function AddEventForm({ setIsEditing, setEvents }) {
+    /**
+     * Stores all user-inputted form data for the new event.
+     * @type {{originCompetitionName: string, dateVenue: string, timeVenueUTC: string, sport: string}}
+     */
     const [formData, setFormData] = useState({
         originCompetitionName: "",
         dateVenue: "",
@@ -9,13 +28,26 @@ function AddEventForm({ setIsEditing, setEvents }) {
         sport: "",
     });
 
+    /**
+     * Handles changes in form input fields and updates local state.
+     *
+     * @function
+     * @param {React.ChangeEvent<HTMLInputElement | HTMLSelectElement>} e - The input or select change event.
+     */
     function handleChange(e) {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     }
 
-    console.log(formData);
-
+    /**
+     * Submits the form data to the backend API.
+     * Formats the time string to ensure seconds (`:00`) are included when necessary.
+     * On success, updates the parent component’s event list and switches back to the event board view.
+     *
+     * @async
+     * @function
+     * @param {React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>} e - The form submission event.
+     */
     async function handleSubmit(e) {
         e.preventDefault();
 
