@@ -127,10 +127,20 @@ const EventsBoardStyled = styled(BaseCard)`
         margin-bottom: 20px;
 
         p {
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, transform 0.15s ease,
+                border-color 0.2s ease;
+
+            &.active {
+                border-bottom-color: #007bff;
+                color: #007bff;
+                font-weight: 600;
+            }
+
             &:hover {
                 cursor: pointer;
                 color: #0056b3;
-                transition: color 0.2s ease, transform 0.15s ease;
 
                 &:hover {
                     cursor: pointer;
@@ -138,6 +148,33 @@ const EventsBoardStyled = styled(BaseCard)`
                     transform: translateY(-2px);
                 }
             }
+        }
+    }
+
+    .events-scrollable-wrapper {
+        overflow-y: auto;
+        overflow-x: hidden;
+        flex: 1;
+        max-height: calc(100% - 180px);
+        padding-right: 5px;
+
+        /* Custom scrollbar styles */
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     }
 

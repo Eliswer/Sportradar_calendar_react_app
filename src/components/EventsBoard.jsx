@@ -73,6 +73,11 @@ function EventsBoard({
                                 key={category.toLowerCase()}
                                 id={category.toLowerCase()}
                                 onClick={changeCategory}
+                                className={
+                                    categorySelect === category.toLowerCase()
+                                        ? "active"
+                                        : ""
+                                }
                             >
                                 {category}
                             </p>
@@ -81,57 +86,62 @@ function EventsBoard({
                 </div>
             </div>
 
-            {/* Display message if there are no events for the selected month */}
-            {itemsToRender.filter((event) => {
-                const date = new Date(event.dateVenue);
-                return (
-                    date.getMonth() === newDate.month &&
-                    date.getFullYear() === newDate.year
-                );
-            }).length === 0 && (
-                <p className="no-events-message">No events for this month</p>
-            )}
+            <div className="events-scrollable-wrapper">
+                {/* Display message if there are no events for the selected month */}
+                {itemsToRender.filter((event) => {
+                    const date = new Date(event.dateVenue);
+                    return (
+                        date.getMonth() === newDate.month &&
+                        date.getFullYear() === newDate.year
+                    );
+                }).length === 0 && (
+                    <p className="no-events-message">
+                        No events for this month
+                    </p>
+                )}
 
-            {/* Render events for the selected month */}
-            {itemsToRender.map((event, i) => {
-                const date = event.dateVenue;
+                {/* Render events for the selected month */}
+                {itemsToRender.map((event, i) => {
+                    const date = event.dateVenue;
 
-                const venueTime = {
-                    month: new Date(date).getMonth(),
-                    day: new Date(date).getDay(),
-                    date: new Date(date).getDate(),
-                    year: new Date(date).getFullYear(),
-                    time: event.timeVenueUTC.slice(0, 5),
-                };
+                    const venueTime = {
+                        month: new Date(date).getMonth(),
+                        day: new Date(date).getDay(),
+                        date: new Date(date).getDate(),
+                        year: new Date(date).getFullYear(),
+                        time: event.timeVenueUTC.slice(0, 5),
+                    };
 
-                return (
-                    newDate.month === venueTime.month &&
-                    newDate.year === venueTime.year && (
-                        <div key={i} className="event">
-                            <EventCard
-                                key={i}
-                                $event={event}
-                                $eventColors={eventColors}
-                                className="event"
-                            >
-                                <div className="event__date">
-                                    <p className="event__day-number">
-                                        {venueTime.date}
-                                    </p>
-                                    <p className="event__day-name">
-                                        {daysArray[venueTime.day]}
-                                    </p>
+                    return (
+                        newDate.month === venueTime.month &&
+                        newDate.year === venueTime.year && (
+                            <div key={i} className="event">
+                                <EventCard
+                                    key={i}
+                                    $event={event}
+                                    $eventColors={eventColors}
+                                    className="event"
+                                >
+                                    <div className="event__date">
+                                        <p className="event__day-number">
+                                            {venueTime.date}
+                                        </p>
+                                        <p className="event__day-name">
+                                            {daysArray[venueTime.day]}
+                                        </p>
+                                    </div>
+                                </EventCard>
+
+                                <div className="event__competition">
+                                    {event.originCompetitionName}
+                                    {" - " + venueTime.time}
                                 </div>
-                            </EventCard>
-
-                            <div className="event__competition">
-                                {event.originCompetitionName}
-                                {" - " + venueTime.time}
                             </div>
-                        </div>
-                    )
-                );
-            })}
+                        )
+                    );
+                })}
+            </div>
+
             <Button onClick={() => setIsEditing((prev) => !prev)}>
                 Add event
             </Button>
