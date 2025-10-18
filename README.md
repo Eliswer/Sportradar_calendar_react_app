@@ -75,7 +75,7 @@ This will launch the React app on http://localhost:3000
 and automatically connect to the backend API.
 
 ## Project structure
-
+```bash
 react-sportradar-calendar/
 ├── backend/
 │ ├── data/
@@ -94,6 +94,7 @@ react-sportradar-calendar/
 │ └── index.js
 ├── package.json
 └── README.md
+```
 
 ## Usage
 
