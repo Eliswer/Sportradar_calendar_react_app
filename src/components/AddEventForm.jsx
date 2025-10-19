@@ -42,7 +42,7 @@ function AddEventForm({ setIsEditing, setEvents }) {
     /**
      * Submits the form data to the backend API.
      * Formats the time string to ensure seconds (`:00`) are included when necessary.
-     * On success, updates the parent component’s event list and switches back to the event board view.
+     * On success, updates the parent component's event list and switches back to the event board view.
      *
      * @async
      * @function
@@ -79,64 +79,68 @@ function AddEventForm({ setIsEditing, setEvents }) {
             </div>
             <div className="form-wrapper">
                 <form onSubmit={handleSubmit}>
-                    <div className="form-event-wrapper">
-                        <label htmlFor="originCompetitionName">
-                            Competition Name
-                        </label>
-                        <input
-                            id="originCompetitionName"
-                            name="originCompetitionName"
-                            value={formData.originCompetitionName}
-                            onChange={handleChange}
-                            required
-                        ></input>
+                    <div className="form-fields-wrapper">
+                        <div className="form-event-wrapper">
+                            <label htmlFor="originCompetitionName">
+                                Competition Name
+                            </label>
+                            <input
+                                id="originCompetitionName"
+                                name="originCompetitionName"
+                                value={formData.originCompetitionName}
+                                onChange={handleChange}
+                                required
+                            ></input>
+                        </div>
+                        <div className="form-event-wrapper">
+                            <label htmlFor="dateVenue">Day of Event</label>
+                            <input
+                                id="dateVenue"
+                                name="dateVenue"
+                                type="date"
+                                value={formData.dateVenue}
+                                onChange={handleChange}
+                                required
+                            ></input>
+                        </div>
+                        <div className="form-event-wrapper">
+                            <label htmlFor="timeVenueUTC">Time of Event</label>
+                            <input
+                                id="timeVenueUTC"
+                                name="timeVenueUTC"
+                                type="time"
+                                value={formData.timeVenueUTC}
+                                onChange={handleChange}
+                                required
+                            ></input>
+                        </div>
+                        <div className="form-event-wrapper">
+                            <label htmlFor="sport">Sport</label>
+                            <select
+                                id="sport"
+                                name="sport"
+                                value={formData.sport}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="">Click here to choose</option>
+                                <option value="football">Football</option>
+                                <option value="hockey">Hockey</option>
+                                <option value="basketball">Basketball</option>
+                                <option value="baseball">Baseball</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className="form-event-wrapper">
-                        <label htmlFor="dateVenue">Day of Event</label>
-                        <input
-                            id="dateVenue"
-                            name="dateVenue"
-                            type="date"
-                            value={formData.dateVenue}
-                            onChange={handleChange}
-                            required
-                        ></input>
-                    </div>
-                    <div className="form-event-wrapper">
-                        <label htmlForfor="timeVenueUTC">Time of Event</label>
-                        <input
-                            id="timeVenueUTC"
-                            name="timeVenueUTC"
-                            type="time"
-                            value={formData.timeVenueUTC}
-                            onChange={handleChange}
-                            required
-                        ></input>
-                    </div>
-                    <div className="form-event-wrapper">
-                        <label htmlForfor="sport">Sport</label>
-                        <select
-                            id="sport"
-                            name="sport"
-                            value={formData.sport}
-                            onChange={handleChange}
+                    <div className="buttons-wrapper">
+                        <Button
+                            type="button"
+                            onClick={() => setIsEditing((prev) => !prev)}
                         >
-                            <option>Click here to choose</option>
-                            <option value="football">Football</option>
-                            <option value="hockey">Hockey</option>
-                            <option value="basketball">Basketball</option>
-                            <option value="baseball">Baseball</option>
-                        </select>
+                            Back to all Events
+                        </Button>
+                        <Button type="submit">Add Event</Button>
                     </div>
                 </form>
-            </div>
-            <div className="buttons-wrapper">
-                <Button onClick={() => setIsEditing((prev) => !prev)}>
-                    Back to all Events
-                </Button>
-                <Button type="submit" onClick={handleSubmit}>
-                    Add Event
-                </Button>
             </div>
         </EventForm>
     );

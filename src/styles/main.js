@@ -261,13 +261,21 @@ const EventForm = styled(BaseCard)`
     }
 
     .form-wrapper {
-        height: 70%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
 
         form {
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
+
+            .form-fields-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
 
             .form-event-wrapper {
                 display: flex;
